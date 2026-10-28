@@ -58,6 +58,10 @@ VARIANT_CHARS = {
     "羣": "群",
     "啓": "啟",
     "眞": "真",
+    "衆": "眾",
+    "僞": "偽",
+    "麪": "麵",
+    "牀": "床",
 }
 
 # 大陸用語 → (台灣用語, 是否要看語境)。要看語境的詞，在某些意思下是對的。（§31）
@@ -68,17 +72,28 @@ MAINLAND_TERMS = {
     "軟件": ("軟體", False),
     "硬件": ("硬體", False),
     "網絡": ("網路", False),
-    "默認": ("預設", False),
+    "互聯網": ("網路、網際網路", False),
+    "人工智能": ("人工智慧", False),
+    "算法": ("演算法", False),
+    "數字化": ("數位化", False),
+    "芯片": ("晶片", False),
+    "內存": ("記憶體", False),
+    "程序": ("程式", True),
+    "代碼": ("程式碼", True),
+    "用戶": ("使用者", True),
+    "默認": ("預設", True),
     "通過": ("透過", True),
     "高清": ("高畫質", False),
     "鏈接": ("連結", False),
     "激活": ("啟用", False),
     "菜單": ("選單", True),
     "文檔": ("文件", False),
+    "文件夾": ("資料夾", False),
     "數據庫": ("資料庫", False),
     "服務器": ("伺服器", False),
     "屏幕": ("螢幕", False),
     "打印": ("列印", False),
+    "短信": ("簡訊", False),
     "項目": ("專案", True),
     "支持": ("支援", True),
     "營銷": ("行銷", False),
@@ -88,8 +103,14 @@ MAINLAND_TERMS = {
     "評論區": ("留言區", False),
     "靠譜": ("可靠、靠得住", False),
     "小夥伴": ("朋友、大家", False),
-    "種草": ("推坑、推薦", False),
+    "種草": ("推坑、推薦", True),
     "乾貨": ("實用內容、重點", True),
+}
+
+# 剛好包含大陸用語、但其實是台灣正確用法的詞。落在這些詞裡面的命中不算。
+TERM_EXCEPTIONS = {
+    "算法": re.compile("演算法"),
+    "內存": re.compile("內存在"),
 }
 
 CJK = r"㐀-䶿一-鿿"
@@ -149,7 +170,11 @@ def check_line(line: str, number: int) -> list[Finding]:
                                     "台灣的中文正文用「」和『』", True))
 
     for term, (suggestion, needs_context) in MAINLAND_TERMS.items():
+        exception = TERM_EXCEPTIONS.get(term)
+        excluded = [span.span() for span in exception.finditer(line)] if exception else []
         for match in re.finditer(re.escape(term), line):
+            if any(start <= match.start() and match.end() <= end for start, end in excluded):
+                continue
             advice = f"台灣通常說「{suggestion}」"
             if needs_context:
                 advice += "；這個詞在某些意思下沒錯，請看語境"
@@ -187,9 +212,12 @@ SELF_TESTS = [
     ("先把舊水苔拿掉，再放進泡過水的新水苔。", set(), True),
     ("這款产品的说明还没更新。", {"簡體字"}, False),
     ("爲了安全着想，裏面的綫都換過了。", {"殘留字形"}, False),
+    ("觀衆拿到的是僞造的票。", {"殘留字形"}, False),
     ("他說“這批苗況很好”,但其他人不同意。", {"標點"}, False),
     ('老闆說"下週到貨"。', {"標點"}, False),
     ("這個視頻默認是高清畫質。", {"大陸用語"}, False),
+    ("推薦算法跑在新的芯片上。", {"大陸用語"}, False),
+    ("這個演算法會推薦內容，他的體內存在抗體。", set(), True),
     ("棒球的重量約 0.145 公斤，網址是 https://example.com/a,b。", set(), True),
     ("在 `print(a,b)` 裡逗號是半形的。", set(), True),
     ("今天的貼文 #植物控 #視頻", set(), True),

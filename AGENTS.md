@@ -31,7 +31,7 @@ Humanizer-tw 是用 Markdown 寫的 agent skill，是英文原版 [blader/humani
 - **描述：** 每個 plugin 設定檔的描述，都用 `SKILL.md` description 的第一句。
 - **篇幅：** `SKILL.md` 每次使用都會被完整讀取。驗證腳本限制它最多 15,000 個字元（不含空白）；增加字數的修改要值得那些字。
 - **紀錄：** 任何行為改變或不明顯的修正，都在 `CHANGELOG.md` 加一則簡短紀錄。
-- **檢查：** 發布前執行 `python3 scripts/validate-package.py`、`python3 scripts/check-zh-tw.py --self-test`、`npx skills add . --list` 和 `claude plugin validate .`。
+- **檢查：** 發布前執行 `python3 scripts/validate-package.py`、`python3 scripts/check-zh-tw.py --self-test`、`python3 scripts/check-zh-tw.py README.md AGENTS.md CHANGELOG.md`、`npx skills add . --list` 和 `claude plugin validate .`。
 
 ## 寫作風格
 
@@ -54,4 +54,5 @@ Humanizer-tw 是用 Markdown 寫的 agent skill，是英文原版 [blader/humani
 - 讓 YAML 中繼資料保持有效。
 - 中繼資料下面的提示詞就是產品本身。
 - 寧可用一條簡短清楚的指示，也不要再加一個例外或重複的說明。
-- `SKILL.md` 本身含有刻意的錯誤範例（例如 §21 的引號、§31 和 §32 的用字），所以不要用 `check-zh-tw.py` 檢查 `SKILL.md`。
+- `SKILL.md` 本身含有刻意的錯誤範例（例如 §21 的引號、§31 和 §32 的用字），所以不要用 `check-zh-tw.py` 檢查 `SKILL.md`。也不要用它檢查 `.yml` 和 `.json`，因為 YAML 字串的直引號會被當成中文引號。
+- README 的範例如果故意放了大陸用語或殘留字，要放在行內程式碼裡（加反引號），文件檢查才會通過。

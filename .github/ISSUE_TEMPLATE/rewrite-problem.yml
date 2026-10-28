@@ -26,7 +26,7 @@ body:
     attributes:
       label: 你怎麼呼叫它
       description: 你用的工具、模型和完整的提示詞。
-      placeholder: "Claude 桌面版：/humanizer-tw 然後貼上文字"
+      placeholder: "Claude Code，Opus 5.5：/humanizer-tw 然後貼上文字"
     validations:
       required: true
   - type: textarea
