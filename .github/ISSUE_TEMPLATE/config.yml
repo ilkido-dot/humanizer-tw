@@ -1,0 +1,5 @@
+blank_issues_enabled: true
+contact_links:
+  - name: AI 偵測器還是判定是 AI 寫的
+    url: https://github.com/ilkido-dot/Humanizer-tw#humanizer-tw
+    about: 通過 AI 偵測不是這個專案的目標。Humanizer-tw 是為人類讀者改寫。

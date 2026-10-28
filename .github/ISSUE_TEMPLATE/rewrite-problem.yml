@@ -1,0 +1,45 @@
+name: 改寫出了問題
+description: 改寫留下了痕跡、改變了意思、新增了事實，或改了原本沒問題的地方。
+labels: ["bug"]
+body:
+  - type: dropdown
+    id: problem
+    attributes:
+      label: 哪裡出了問題
+      options:
+        - 改寫後還留著痕跡
+        - 改寫新增或遺漏了事實
+        - 改了原本沒問題的文字
+        - 用字或標點不符合台灣慣例
+        - 其他
+    validations:
+      required: true
+  - type: textarea
+    id: input
+    attributes:
+      label: 原文
+      description: 你交給 Humanizer-tw 的文字。請先拿掉私人資訊。
+    validations:
+      required: true
+  - type: textarea
+    id: call
+    attributes:
+      label: 你怎麼呼叫它
+      description: 你用的工具、模型和完整的提示詞。
+      placeholder: "Claude 桌面版：/humanizer-tw 然後貼上文字"
+    validations:
+      required: true
+  - type: textarea
+    id: output
+    attributes:
+      label: 輸出
+      description: Humanizer-tw 交回的內容。
+    validations:
+      required: true
+  - type: textarea
+    id: expected
+    attributes:
+      label: 應該怎麼做
+      description: 引用出問題的句子，並寫出細心的作者會怎麼寫。知道的話，寫出模式編號。
+    validations:
+      required: true

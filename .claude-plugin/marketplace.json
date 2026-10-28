@@ -1,0 +1,18 @@
+{
+  "$schema": "https://json.schemastore.org/claude-code-marketplace.json",
+  "name": "humanizer-tw",
+  "owner": {
+    "name": "MIUHU",
+    "url": "https://github.com/ilkido-dot"
+  },
+  "description": "把 Humanizer-tw 安裝成 Claude plugin。",
+  "plugins": [
+    {
+      "name": "humanizer-tw",
+      "source": "./",
+      "description": "改寫讀起來像 AI 寫的繁體中文，讓它像作者本人寫的，但不改變內容。",
+      "license": "MIT",
+      "keywords": ["writing", "editing", "humanize", "prose", "style", "traditional-chinese", "zh-tw", "taiwan"]
+    }
+  ]
+}

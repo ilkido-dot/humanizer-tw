@@ -1,0 +1,4 @@
+interface:
+  display_name: "Humanizer-tw"
+  short_description: "讓 AI 寫的繁中文字像作者本人寫的"
+  default_prompt: "用 $humanizer-tw 把這段文字改成我的語氣，不要改變任何事實。"

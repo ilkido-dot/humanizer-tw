@@ -1,0 +1,14 @@
+{
+  "name": "humanizer-tw",
+  "description": "改寫讀起來像 AI 寫的繁體中文，讓它像作者本人寫的，但不改變內容。",
+  "version": "1.0.0",
+  "author": {
+    "name": "MIUHU",
+    "url": "https://github.com/ilkido-dot"
+  },
+  "homepage": "https://github.com/ilkido-dot/Humanizer-tw",
+  "repository": "https://github.com/ilkido-dot/Humanizer-tw",
+  "license": "MIT",
+  "keywords": ["writing", "editing", "humanize", "prose", "style", "traditional-chinese", "zh-tw", "taiwan"],
+  "skills": ["./"]
+}
